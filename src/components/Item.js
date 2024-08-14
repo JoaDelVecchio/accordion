@@ -1,14 +1,11 @@
-import { useState } from "react";
-
-const Item = ({ n, title, text }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => setIsOpen(!isOpen);
+const Item = ({ n, title, currOpen, setCurrOpen, onOpen, children }) => {
+  const isOpen = currOpen === n;
   return (
-    <div className={`item ${isOpen && "open"}`} onClick={handleToggle}>
+    <div className={`item ${isOpen && "open"}`} onClick={() => onOpen(n)}>
       <p className={`number`}>{n < 10 ? `0${n}` : n}</p>
       <p className="title">{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
-      {isOpen && <div className="content-box text">{text}</div>}
+      {isOpen && children}
     </div>
   );
 };
